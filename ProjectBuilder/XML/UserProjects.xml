@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserProjects xmlns="file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd">
+  <User Name="Name1">
+    <Project Current="true" Active="true" Number="Number1" Task="Task1" Phase="Phase1" Building="Build1" />
+    <Project Current="false" Active="false" Number="Number2" Task="Task2" Phase="Phase2" Building="Build2" />
+    <Project Current="true" Active="true" Number="Number3" Task="Task3" Phase="Phase3" Building="Build3" />
+  </User>
+  <User Name="Name2">
+    <Project Current="false" Active="false" Number="Number4" Task="Task4" Phase="Phase4" Building="Build4" />
+    <Project Current="true" Active="true" Number="Number5" Task="Task5" Phase="Phase5" Building="Build5" />
+    <Project Current="false" Active="false" Number="Number6" Task="Task6" Phase="Phase6" Building="Build6" />
+  </User>
+  <User Name="Name3">
+    <Project Current="true" Active="true" Number="Number7" Task="Task7" Phase="Phase7" Building="Build7" />
+    <Project Current="false" Active="false" Number="Number8" Task="Task8" Phase="Phase8" Building="Build8" />
+    <Project Current="true" Active="true" Number="Number9" Task="Task9" Phase="Phase9" Building="Build9" />
+  </User>
+</UserProjects>
