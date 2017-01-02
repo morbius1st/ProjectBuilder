@@ -60,6 +60,8 @@
     <Compile Include="uProject.cs" />
     <Compile Include="uProjectData.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="XSD\ProjectData.designer.cs" />
+    <Compile Include="XSD\UserProjects.designer.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
