@@ -863,14 +863,14 @@ namespace ProjectBuilder
 //
 //		}
 //
-//		private ProjData AssignProjDataNew()
-//		{
-//			UserProj uProj = new UserProj();
-//
-//			uProj.ProjKey = new IDInfo("2099-999", "TextX");
-//
-//			return new ProjData(uProj, @"p:\Root Folder");
-//		}
+		private ProjData AssignProjDataNew()
+		{
+			UserProj uProj = new UserProj();
+
+			uProj.ProjKey = new IDInfo("2099-999", "TextX");
+
+			return new ProjData(uProj, @"p:\Root Folder");
+		}
 //
 //
 //		private StringBuilder CreateNewProject(ProjectData pd, UserProj uProj)
@@ -1022,22 +1022,17 @@ namespace ProjectBuilder
 				sb.Append(Util.FormatItemN(column, "CD Packages"));
 
 
-
-				foreach (ProjectDataCDSets oneCDSet in pd.CDSets)
+				foreach (ProjectDataTask oneTask in pd.CDSets)
 				{
-
-					foreach (ProjectDataCDSetsTask oneTask in oneCDSet.Task)
-					{
-						sb.Append(ListTask(uProj, oneTask));
-						Util.Column = column + Util.ColumnAdjust;
-					}
-					
+					sb.Append(ListTask(uProj, oneTask));
+					Util.Column = column + Util.ColumnAdjust;
 				}
+					
 			}
 			else
 			{
 				// listing one task
-				ProjectDataCDSetsTask oneTask = pd.FindTask(uProj);
+				ProjectDataTask oneTask = pd.FindTask(uProj);
 
 				sb.Append(FormatItemDividerN());
 				sb.Append(FormatItemN(column, "CD Package"));
@@ -1054,7 +1049,7 @@ namespace ProjectBuilder
 			return sb;
 		}
 
-		private StringBuilder ListTask(UserProj uProj, ProjectDataCDSetsTask oneTask)
+		private StringBuilder ListTask(UserProj uProj, ProjectDataTask oneTask)
 		{
 			StringBuilder sb = new StringBuilder();
 

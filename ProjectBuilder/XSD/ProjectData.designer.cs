@@ -216,14 +216,14 @@ namespace ProjectBuilder
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
 	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd", IsNullable = false)]
-	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataCDSets>
+	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataTask>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private ProjectDataProject projectField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private List<ProjectDataCDSets> cDSetsField;
+		private List<ProjectDataTask> tasksField;
 
 		[System.Xml.Serialization.XmlElementAttribute(Order = 0)]
 		public ProjectDataProject Project
@@ -238,16 +238,17 @@ namespace ProjectBuilder
 			}
 		}
 
-		[System.Xml.Serialization.XmlElementAttribute("CDSets", Order = 1)]
-		public List<ProjectDataCDSets> CDSets
+		[System.Xml.Serialization.XmlArrayAttribute(Order = 1)]
+		[System.Xml.Serialization.XmlArrayItemAttribute("Task", IsNullable = false)]
+		public List<ProjectDataTask> Tasks
 		{
 			get
 			{
-				return this.cDSetsField;
+				return this.tasksField;
 			}
 			set
 			{
-				this.cDSetsField = value;
+				this.tasksField = value;
 			}
 		}
 	}
@@ -314,68 +315,11 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSets : ProjectDataBaseB<ProjectDataCDSets, ProjectDataCDSetsTask>
+	public partial class ProjectDataTask : ProjectDataBaseB<ProjectDataTask, ProjectDataTaskPhase>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private List<ProjectDataCDSetsTask> taskField;
-
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		private string idField;
-
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		private string descriptionField;
-
-		[System.Xml.Serialization.XmlElementAttribute("Task", Order = 0)]
-		public List<ProjectDataCDSetsTask> Task
-		{
-			get
-			{
-				return this.taskField;
-			}
-			set
-			{
-				this.taskField = value;
-			}
-		}
-
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string ID
-		{
-			get
-			{
-				return this.idField;
-			}
-			set
-			{
-				this.idField = value;
-			}
-		}
-
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string Description
-		{
-			get
-			{
-				return this.descriptionField;
-			}
-			set
-			{
-				this.descriptionField = value;
-			}
-		}
-	}
-
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTask : ProjectDataBaseB<ProjectDataCDSetsTask, ProjectDataCDSetsTaskPhase>
-	{
-
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		private List<ProjectDataCDSetsTaskPhase> phaseField;
+		private List<ProjectDataTaskPhase> phaseField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string idField;
@@ -384,7 +328,7 @@ namespace ProjectBuilder
 		private string descriptionField;
 
 		[System.Xml.Serialization.XmlElementAttribute("Phase", Order = 0)]
-		public List<ProjectDataCDSetsTaskPhase> Phase
+		public List<ProjectDataTaskPhase> Phase
 		{
 			get
 			{
@@ -428,11 +372,11 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhase : ProjectDataBaseB<ProjectDataCDSetsTaskPhase, ProjectDataCDSetsTaskPhaseBldg>
+	public partial class ProjectDataTaskPhase : ProjectDataBaseB<ProjectDataTaskPhase, ProjectDataTaskPhaseBldg>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private List<ProjectDataCDSetsTaskPhaseBldg> bldgField;
+		private List<ProjectDataTaskPhaseBldg> bldgField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string idField;
@@ -441,7 +385,7 @@ namespace ProjectBuilder
 		private string descriptionField;
 
 		[System.Xml.Serialization.XmlElementAttribute("Bldg", Order = 0)]
-		public List<ProjectDataCDSetsTaskPhaseBldg> Bldg
+		public List<ProjectDataTaskPhaseBldg> Bldg
 		{
 			get
 			{
@@ -485,20 +429,17 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhaseBldg : ProjectDataBaseA<ProjectDataCDSetsTaskPhaseBldg>
+	public partial class ProjectDataTaskPhaseBldg : ProjectDataBaseA<ProjectDataTaskPhaseBldg>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string cDFolderField;
 
-//		[EditorBrowsable(EditorBrowsableState.Never)]
-//		private ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat sheetNumberFormatField;
-
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string sheetNumberFormatField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private ProjectDataCDSetsTaskPhaseBldgLocation locationField;
+		private ProjectDataTaskPhaseBldgLocation locationField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string idField;
@@ -533,7 +474,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlElementAttribute(Order = 2)]
-		public ProjectDataCDSetsTaskPhaseBldgLocation Location
+		public ProjectDataTaskPhaseBldgLocation Location
 		{
 			get
 			{
@@ -575,7 +516,7 @@ namespace ProjectBuilder
 //	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
 //	[System.SerializableAttribute()]
 //	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-//	public enum ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat
+//	public enum ProjectDataTaskPhaseBldgSheetNumberFormat
 //	{
 //
 //		/// <remarks/>
@@ -596,17 +537,17 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocation : ProjectDataBase<ProjectDataCDSetsTaskPhaseBldgLocation>
+	public partial class ProjectDataTaskPhaseBldgLocation : ProjectDataBase<ProjectDataTaskPhaseBldgLocation>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD autoCADField;
+		private ProjectDataTaskPhaseBldgLocationAutoCAD autoCADField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private ProjectDataCDSetsTaskPhaseBldgLocationRevit revitField;
+		private ProjectDataTaskPhaseBldgLocationRevit revitField;
 
 		[System.Xml.Serialization.XmlElementAttribute(Order = 0)]
-		public ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD AutoCAD
+		public ProjectDataTaskPhaseBldgLocationAutoCAD AutoCAD
 		{
 			get
 			{
@@ -619,7 +560,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlElementAttribute(Order = 1)]
-		public ProjectDataCDSetsTaskPhaseBldgLocationRevit Revit
+		public ProjectDataTaskPhaseBldgLocationRevit Revit
 		{
 			get
 			{
@@ -637,7 +578,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD : ProjectDataBase<ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD>
+	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : ProjectDataBase<ProjectDataTaskPhaseBldgLocationAutoCAD>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -710,7 +651,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocationRevit : ProjectDataBase<ProjectDataCDSetsTaskPhaseBldgLocationRevit>
+	public partial class ProjectDataTaskPhaseBldgLocationRevit : ProjectDataBase<ProjectDataTaskPhaseBldgLocationRevit>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]

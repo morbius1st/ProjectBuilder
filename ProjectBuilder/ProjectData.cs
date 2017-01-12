@@ -21,28 +21,22 @@ namespace ProjectBuilder
 	 * root class:
 	 * ProjectData
 	 *    +-> Project -> ProjectDataProject
-	 *    +-> CDSets = list<ProjectDataCDSets>
+	 *    +-> Tasks = list<ProjectDataTask>
 	 *    |
 	 *    v
-	 * ProjectDataCDSets
-	 *    +-> ID (CD Set ID)
-	 *    +-> Description
-	 *    +-> Tasks = List<ProjectDataCDSetsTask>
-	 *    | 
-	 *    v
-	 * ProjectDataCDSetsTask
+	 * ProjectDataTask
 	 *    +-> ID (Task ID)
 	 *    +-> Description
-	 *    +-> Phase = list<ProjectDataCDSetsTaskPhase>
+	 *    +-> Phase = list<ProjectDataTaskPhase>
 	 *    | 
 	 *    v
-	 * ProjectDataCDSetsTaskPhase
+	 * ProjectDataTaskPhase
 	 *    +-> ID (Phase ID)
 	 *    +-> Description
-	 *    +-> Building = list<ProjectDataCDSetsTaskPhaseBldg>
+	 *    +-> Building = list<ProjectDataTaskPhaseBldg>
 	 *    |
 	 *    v
-	 * ProjectDataCDSetsTaskPhaseBldg
+	 * ProjectDataTaskPhaseBldg
 	 *    +-> ID (Bldg ID)
 	 *    +-> Description
 	 *    +-> CDFolder
@@ -50,9 +44,9 @@ namespace ProjectBuilder
 	 *    +-> Location
 	 *    |
 	 *    v
-	 * ProjectDataCDSetsTaskPhaseBldgLocation
-	 *    +-> AutoCAD -> ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD
-	 *	  |			+-> Revit -> ProjectDataCDSetsTaskPhaseBldgLocationRevit
+	 * ProjectDataTaskPhaseBldgLocation
+	 *    +-> AutoCAD -> ProjectDataTaskPhaseBldgLocationAutoCAD
+	 *	  |			+-> Revit -> ProjectDataTaskPhaseBldgLocationRevit
 	 *    |		    |
 	 *    |			v
 	 *    |		ProjectDataCDPackageTaskPhaseBuildingRevit
@@ -142,7 +136,7 @@ namespace ProjectBuilder
 		public override string ItemDescription => Project.Description;
 
 		[XmlIgnore]
-		public override List<ProjectDataCDSets> ItemList => CDSets;
+		public override List<ProjectDataTask> ItemList => Tasks;
 
 		public string XmlFile => xmlFile;
 
@@ -195,7 +189,29 @@ namespace ProjectBuilder
 
 	}
 
-	public partial class ProjectDataCDSets : IProjDataB
+//	public partial class ProjectData : IProjDataB
+//	{
+//		[XmlIgnore]
+//		public override string ItemID => "";
+//
+//		[XmlIgnore]
+//		public override string ItemDescription => "";
+//
+//		[XmlIgnore]
+//		public override List<ProjectDataTask> ItemList => new List<ProjectDataTask>();
+//
+//
+//
+//
+//
+//		// todo: implement code
+//		public bool Update(ProjData pData)
+//		{
+//			return true;
+//		}
+//	}
+
+	public partial class ProjectDataTask : IProjDataB
 	{
 		[XmlIgnore]
 		public override string ItemID => "";
@@ -204,8 +220,7 @@ namespace ProjectBuilder
 		public override string ItemDescription => "";
 
 		[XmlIgnore]
-		public override List<ProjectDataCDSetsTask> ItemList => new List<ProjectDataCDSetsTask>();
-
+		public override List<ProjectDataTaskPhase> ItemList => new List<ProjectDataTaskPhase>();
 
 
 
@@ -217,7 +232,7 @@ namespace ProjectBuilder
 		}
 	}
 
-	public partial class ProjectDataCDSetsTask : IProjDataB
+	public partial class ProjectDataTaskPhase : IProjDataB
 	{
 		[XmlIgnore]
 		public override string ItemID => "";
@@ -226,7 +241,7 @@ namespace ProjectBuilder
 		public override string ItemDescription => "";
 
 		[XmlIgnore]
-		public override List<ProjectDataCDSetsTaskPhase> ItemList => new List<ProjectDataCDSetsTaskPhase>();
+		public override List<ProjectDataTaskPhaseBldg> ItemList => new List<ProjectDataTaskPhaseBldg>();
 
 
 
@@ -238,33 +253,12 @@ namespace ProjectBuilder
 		}
 	}
 
-	public partial class ProjectDataCDSetsTaskPhase : IProjDataB
-	{
-		[XmlIgnore]
-		public override string ItemID => "";
-
-		[XmlIgnore]
-		public override string ItemDescription => "";
-
-		[XmlIgnore]
-		public override List<ProjectDataCDSetsTaskPhaseBldg> ItemList => new List<ProjectDataCDSetsTaskPhaseBldg>();
-
-
-
-
-		// todo: implement code
-		public bool Update(ProjData pData)
-		{
-			return true;
-		}
-	}
-
-	public partial class ProjectDataCDSetsTaskPhaseBldg : IProjDataB
+	public partial class ProjectDataTaskPhaseBldg : IProjDataB
 	{
 		// parameterless constructor is required
-		internal ProjectDataCDSetsTaskPhaseBldg() { }
+		internal ProjectDataTaskPhaseBldg() { }
 
-		internal ProjectDataCDSetsTaskPhaseBldg(string id, string description)
+		internal ProjectDataTaskPhaseBldg(string id, string description)
 		{
 			ID = id ?? "";
 			Description = description ?? "";
@@ -272,11 +266,11 @@ namespace ProjectBuilder
 
 		// UserProj
 		// ProjData
-		internal ProjectDataCDSetsTaskPhaseBldg(UserProj uProj) : this(uProj.BldgKey.ID, uProj.BldgKey.Description)
+		internal ProjectDataTaskPhaseBldg(UserProj uProj) : this(uProj.BldgKey.ID, uProj.BldgKey.Description)
 		{
 			CDFolder = "";
 			SheetNumberFormat = "";
-			Location = new ProjectDataCDSetsTaskPhaseBldgLocation();
+			Location = new ProjectDataTaskPhaseBldgLocation();
 		}
 
 		[XmlIgnore]
@@ -317,7 +311,7 @@ namespace ProjectBuilder
 		}
 	}
 
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocation : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocation : IProjDataA
 	{
 
 
@@ -328,10 +322,10 @@ namespace ProjectBuilder
 		}
 	}
 
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : IProjDataA
 	{
 		// constructors
-		internal ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD()
+		internal ProjectDataTaskPhaseBldgLocationAutoCAD()
 		{
 			SheetFolder     = null;
 			XrefFolder      = null;
@@ -339,7 +333,7 @@ namespace ProjectBuilder
 			BorderFile      = null;
 		}
 
-		internal ProjectDataCDSetsTaskPhaseBldgLocationAutoCAD(ProjData pData)
+		internal ProjectDataTaskPhaseBldgLocationAutoCAD(ProjData pData)
 		{
 			SheetFolder  = pData?.AutoCAD?.SheetFolder ?? null;
 			XrefFolder   = pData?.AutoCAD?.XrefFolder ?? null;
@@ -411,10 +405,10 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds revit location information
-	public partial class ProjectDataCDSetsTaskPhaseBldgLocationRevit : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocationRevit : IProjDataA
 	{
 		// constructors
-		internal ProjectDataCDSetsTaskPhaseBldgLocationRevit()
+		internal ProjectDataTaskPhaseBldgLocationRevit()
 		{
 			CDModelFile      = null;
 			LibraryModelFile = null;
@@ -423,7 +417,7 @@ namespace ProjectBuilder
 			XrefFolder       = null;
 		}
 
-		internal ProjectDataCDSetsTaskPhaseBldgLocationRevit(ProjData pData)
+		internal ProjectDataTaskPhaseBldgLocationRevit(ProjData pData)
 		{
 			CDModelFile      = pData?.Revit?.CDModelFile;
 			LibraryModelFile = pData?.Revit?.LibraryModelFile;

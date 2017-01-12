@@ -21,13 +21,13 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name ="CDID">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="[a-zA-Z0-9]*"/>
-      <xs:minLength value="2"/>
-      <xs:maxLength value="6"/>
-    </xs:restriction>
-  </xs:simpleType>
+<!--  <xs:simpleType name ="CDID">-->
+<!--    <xs:restriction base="xs:string">-->
+<!--      <xs:pattern value="[a-zA-Z0-9]*"/>-->
+<!--      <xs:minLength value="2"/>-->
+<!--      <xs:maxLength value="6"/>-->
+<!--    </xs:restriction>-->
+<!--  </xs:simpleType>-->
   
   <xs:simpleType name ="TaskID">
     <xs:restriction base="xs:string">
@@ -60,10 +60,10 @@
     <xs:attribute name="Description" type="tns:Description" use="required"/>
   </xs:attributeGroup>
 
-  <xs:attributeGroup name="CDSetInfo">
-    <xs:attribute name="ID" type="tns:CDID" use="required"/>
-    <xs:attribute name="Description" type="tns:Description"/>
-  </xs:attributeGroup>
+<!--  <xs:attributeGroup name="CDSetInfo">-->
+<!--    <xs:attribute name="ID" type="tns:CDID" use="required"/>-->
+<!--    <xs:attribute name="Description" type="tns:Description"/>-->
+<!--  </xs:attributeGroup>-->
 
   <xs:attributeGroup name="TaskInfo">
     <xs:attribute name="ID" type="tns:TaskID" use="required"/>
@@ -96,7 +96,7 @@
           </xs:complexType>
         </xs:element>
 
-        <xs:element name="CDSets" minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="Tasks">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Task" minOccurs="1" maxOccurs="unbounded">
@@ -162,10 +162,7 @@
 <!--              end Task-->
               </xs:element>
             </xs:sequence>
-<!--          CD Package attributes-->
-            <xs:attributeGroup ref="tns:CDSetInfo"/>
           </xs:complexType>
-<!--          end CDSets-->
         </xs:element>
       </xs:sequence>
     </xs:complexType>
