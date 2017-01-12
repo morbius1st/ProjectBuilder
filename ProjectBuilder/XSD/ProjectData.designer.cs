@@ -216,7 +216,7 @@ namespace ProjectBuilder
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
 	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd", IsNullable = false)]
-	public partial class ProjectData : ProjectDataBase<ProjectData>
+	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataCDSets>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -314,7 +314,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSets : ProjectDataBase<ProjectDataCDSets>
+	public partial class ProjectDataCDSets : ProjectDataBaseB<ProjectDataCDSets, ProjectDataCDSetsTask>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -371,7 +371,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTask : ProjectDataBase<ProjectDataCDSetsTask>
+	public partial class ProjectDataCDSetsTask : ProjectDataBaseB<ProjectDataCDSetsTask, ProjectDataCDSetsTaskPhase>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -428,7 +428,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhase : ProjectDataBase<ProjectDataCDSetsTaskPhase>
+	public partial class ProjectDataCDSetsTaskPhase : ProjectDataBaseB<ProjectDataCDSetsTaskPhase, ProjectDataCDSetsTaskPhaseBldg>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -485,14 +485,17 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public partial class ProjectDataCDSetsTaskPhaseBldg : ProjectDataBase<ProjectDataCDSetsTaskPhaseBldg>
+	public partial class ProjectDataCDSetsTaskPhaseBldg : ProjectDataBaseA<ProjectDataCDSetsTaskPhaseBldg>
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private string cDFolderField;
 
+//		[EditorBrowsable(EditorBrowsableState.Never)]
+//		private ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat sheetNumberFormatField;
+
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		private ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat sheetNumberFormatField;
+		private string sheetNumberFormatField;
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		private ProjectDataCDSetsTaskPhaseBldgLocation locationField;
@@ -517,7 +520,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlElementAttribute(Order = 1)]
-		public ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat SheetNumberFormat
+		public string SheetNumberFormat
 		{
 			get
 			{
@@ -569,24 +572,24 @@ namespace ProjectBuilder
 		}
 	}
 
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	public enum ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat
-	{
-
-		/// <remarks/>
-		[System.Xml.Serialization.XmlEnumAttribute("1:X#")]
-		Item1X,
-
-		/// <remarks/>
-		[System.Xml.Serialization.XmlEnumAttribute("2:X#.#")]
-		Item2X,
-
-		/// <remarks/>
-		[System.Xml.Serialization.XmlEnumAttribute("3:X#.#-#")]
-		Item3X,
-	}
+//	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+//	[System.SerializableAttribute()]
+//	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+//	public enum ProjectDataCDSetsTaskPhaseBldgSheetNumberFormat
+//	{
+//
+//		/// <remarks/>
+//		[System.Xml.Serialization.XmlEnumAttribute("1:X#")]
+//		Item1X,
+//
+//		/// <remarks/>
+//		[System.Xml.Serialization.XmlEnumAttribute("2:X#.#")]
+//		Item2X,
+//
+//		/// <remarks/>
+//		[System.Xml.Serialization.XmlEnumAttribute("3:X#.#-#")]
+//		Item3X,
+//	}
 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
 	[System.SerializableAttribute()]

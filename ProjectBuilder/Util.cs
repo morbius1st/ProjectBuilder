@@ -6,18 +6,24 @@ namespace ProjectBuilder
 	internal static class Util
 	{
 		public static string nl = System.Environment.NewLine;
-		public static string diamonds = "♦♦♦♦♦♦";
-		public static int columnAdjust = 2;
-		public static string AODWG = ".dwg";
-		public static int column = 0;
-		public static int dashwidth = 120;
-		public static int colonColumn = 48;
-		public static string all = "*";
+		public const string Diamonds = "♦♦♦♦♦♦";
+		public const int ColumnAdjust = 2;
+		public const string AODWG = ".dwg";
+		public static int Column = 0;
+		private const int DASHWIDTH = 120;
+		private const int COLON_COLUMN = 48;
+		public const string All = "*";
+		public const string Keep = All;
 
+
+		public static bool IsKeepAsIs(string value)
+		{
+			return value != null && value == Keep;
+		}
 
 		public static StringBuilder FormatItemDivider()
 		{
-			return new StringBuilder(new String('-', dashwidth));
+			return new StringBuilder(new String('-', DASHWIDTH));
 		}
 
 		public static StringBuilder FormatItemDividerN()
@@ -31,9 +37,9 @@ namespace ProjectBuilder
 			return FormatItem(0, description, value);
 		}
 
-		public static StringBuilder FormatItem(int column, string description, string value)
+		public static StringBuilder FormatItem(int col, string description, string value)
 		{
-			string width = (column - colonColumn).ToString();
+			string width = (col - COLON_COLUMN).ToString();
 
 			if (String.IsNullOrWhiteSpace(value))
 			{
@@ -53,31 +59,31 @@ namespace ProjectBuilder
 			return new StringBuilder(nl).Append(FormatItem(0, description, value));
 		}
 
-		public static StringBuilder FormatItemN(int column, string description, string value)
+		public static StringBuilder FormatItemN(int col, string description, string value)
 		{
 			StringBuilder sb = new StringBuilder(nl);
 
-			sb.Append(ColumnOffset(column));
+			sb.Append(ColumnOffset(col));
 
-			return sb.Append(FormatItem(column, description, value));
+			return sb.Append(FormatItem(col, description, value));
 		}
 
-		public static StringBuilder FormatItemN(int column, string description)
+		public static StringBuilder FormatItemN(int col, string description)
 		{
 			StringBuilder sb = new StringBuilder(nl);
 
-			sb.Append(ColumnOffset(column));
+			sb.Append(ColumnOffset(col));
 
 			return sb.Append(description);
 		}
 
-		public static StringBuilder ColumnOffset(int column)
+		public static StringBuilder ColumnOffset(int col)
 		{
 			StringBuilder sb = new StringBuilder();
 
-			if (column > 0 && column < 24)
+			if (col > 0 && col < 24)
 			{
-				for (int i = 0; i < column; i++)
+				for (int i = 0; i < col; i++)
 				{
 					sb.Append(" ");
 				}
@@ -85,22 +91,22 @@ namespace ProjectBuilder
 			return sb;
 		}
 
-		public static string FormatTaskPhaseBuilding(uProject upx)
+		public static string FormatTaskPhaseBuilding(UserProj uProj)
 		{
 			StringBuilder sb = new StringBuilder();
 
-			sb.Append(FormatName(upx.Task.Number));
+			sb.Append(FormatName(uProj.TaskKey.ID));
 
-			sb.Append(FormatName(upx.Phase.Number));
+			sb.Append(FormatName(uProj.PhaseKey.ID));
 
-			sb.Append(FormatName(upx.Building.Number));
+			sb.Append(FormatName(uProj.BldgKey.ID));
 
 			return sb.ToString();
 		}
 
 		public static string FormatName(string name)
 		{
-			return diamonds.Substring(0, 6 - name.Length) + name;
+			return Diamonds.Substring(0, 6 - name.Length) + name;
 		}
 	}
 }
