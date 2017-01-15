@@ -98,6 +98,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="XML\8998 ProjectData.xml" />
     <Content Include="XML\ProjectData.xml" />
     <Content Include="XML\UserProjects.xml" />
   </ItemGroup>

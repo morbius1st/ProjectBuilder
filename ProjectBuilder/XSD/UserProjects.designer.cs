@@ -214,8 +214,8 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd")]
-	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd", IsNullable = false)]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd")]
+	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd", IsNullable = false)]
 	public partial class UserProjects : UserProjectsBase<UserProjects>
 	{
 
@@ -240,7 +240,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd")]
 	public partial class UserProjectsUser : UserProjectsBase<UserProjectsUser>
 	{
 
@@ -281,7 +281,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd")]
 	public partial class UserProjectsUserProject : UserProjectsBase<UserProjectsUserProject>
 	{
 

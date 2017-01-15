@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <schema id="UserProjects"
-    xmlns="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd"
-          xmlns:tns="file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/UserProjects.xsd"
-    elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd"
+	xmlns:tns=      "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/UserProjects.xsd"
+	elementFormDefault="qualified"
 >
   
   <simpleType name ="projNumber">

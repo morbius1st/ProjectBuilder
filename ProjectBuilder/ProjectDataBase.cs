@@ -1,26 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace ProjectBuilder
 {
 
-	public abstract class ProjectDataBaseA<T> : ProjectDataBase<T>
+	public abstract class ProjectDataBaseA<T> : ProjectDataBase<T>//, IProjDataC
 	{
 		internal string nl = Util.nl;
 
 		[XmlIgnore]
-		public abstract string ItemID { get; }
+		public abstract string ID { get; set; }
 
 		[XmlIgnore]
-		public abstract string ItemDescription { get; }
-
+		public abstract string Description { get; set; }
 
 		public IDInfo GetID()
 		{
-			return new IDInfo(ItemID, ItemDescription);
+			return new IDInfo(ID, Description);
 		}
-
-
 	}
 
 	public abstract class ProjectDataBaseB<T1, T2> : ProjectDataBaseA<T1> where T2 : class, IProjDataB
@@ -32,7 +30,7 @@ namespace ProjectBuilder
 		{
 			if (number == null) { return null; }
 
-			return ItemList.Find(x => x.ItemID.Equals(number));
+			return ItemList.Find(x => x.ID.Equals(number));
 		}
 
 		public List<FindItem> FindItems(UserProj uProj, int level)
@@ -48,7 +46,7 @@ namespace ProjectBuilder
 					List<FindItem> foundItems = oneItem.FindItems(uProj, level);
 
 					FoundList.Add(new FindItem(
-						new IDInfo(oneItem.ItemID, oneItem.ItemDescription), foundItems));
+						new IDInfo(oneItem.ID, oneItem.Description), foundItems));
 				}
 			}
 			else
@@ -61,11 +59,17 @@ namespace ProjectBuilder
 					{
 						List<FindItem> foundItems = oneItem.FindItems(uProj, level);
 						FoundList.Add(new FindItem(
-							new IDInfo(oneItem.ItemID, oneItem.ItemDescription), foundItems));
+							new IDInfo(oneItem.ID, oneItem.Description), foundItems));
 					}
 				}
 			}
+
 			return FoundList;
+		}
+
+		public bool Add(ProjData pData)
+		{
+			if (ProjData == null || ProjectData.Exists(pData.Project)) return false
 		}
 
 		public void Sort()
@@ -78,7 +82,7 @@ namespace ProjectBuilder
 				oneItem.Sort();
 			}
 
-			ItemList.Sort((x, y) => x.ItemID.CompareTo(y.ItemID));
+			ItemList.Sort((x, y) => x.ID.CompareTo(y.ID));
 
 		}
 

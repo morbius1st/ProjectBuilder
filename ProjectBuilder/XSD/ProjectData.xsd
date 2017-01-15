@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  targetNamespace="file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd"
-  xmlns:tns =     "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd"
-  elementFormDefault="qualified"
- >
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd"
+	xmlns:tns =     "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd"
+	elementFormDefault="qualified"
+	>
 
   <xs:simpleType name="Description">
     <xs:restriction base="xs:string">
@@ -112,6 +111,7 @@
                                 <xs:element name="SheetNumberFormat">
                                   <xs:simpleType>
                                     <xs:restriction base="xs:string">
+                                      <xs:enumeration value=""/>
                                       <xs:enumeration value="1:X#"/>
                                       <xs:enumeration value="2:X#.#"/>
                                       <xs:enumeration value="3:X#.#-#"/>

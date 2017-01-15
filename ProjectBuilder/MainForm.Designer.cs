@@ -60,12 +60,14 @@
 			this.tbField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbField.Font = new System.Drawing.Font("Monospac821 BT", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbField.Location = new System.Drawing.Point(12, 38);
 			this.tbField.Multiline = true;
 			this.tbField.Name = "tbField";
+			this.tbField.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.tbField.Size = new System.Drawing.Size(959, 448);
 			this.tbField.TabIndex = 2;
+			this.tbField.WordWrap = false;
 			// 
 			// ProjectBuilderForm
 			// 

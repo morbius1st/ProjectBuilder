@@ -10,6 +10,9 @@ namespace ProjectBuilder
 		public ProjDataAutoCAD AutoCAD;
 		public ProjDataRevit Revit;
 
+
+		public ProjData() { }
+
 		public ProjData(UserProj uProj, string rootFolder) :
 			this(uProj, rootFolder, null, null, new ProjDataAutoCAD(), new ProjDataRevit())
 		{ }
@@ -62,7 +65,13 @@ namespace ProjectBuilder
 		public string DetailFolder;
 		public string BorderFile;
 
-		//		public ProjDataAutoCAD() { }
+		public ProjDataAutoCAD()
+		{
+			SheetFolder = null;
+			XrefFolder = null;
+			DetailFolder = null;
+			BorderFile = null;
+		}
 
 		public ProjDataAutoCAD(string sFolder,
 			string xFolder, string dFolder, string bFolder)
@@ -89,7 +98,14 @@ namespace ProjectBuilder
 		public string LinkedFolder;
 		public string XrefFolder;
 
-		//		public ProjDataRevit() { }
+		public ProjDataRevit()
+		{
+			CDModelFile = null;
+			LibraryModelFile = null;
+			KeynoteFile = null;
+			LinkedFolder = null;
+			XrefFolder = null;
+		}
 
 		public ProjDataRevit(string cFile,
 			string lFile, string kFile, string lFolder, string xFolder)

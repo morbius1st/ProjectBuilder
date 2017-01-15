@@ -82,7 +82,7 @@ namespace ProjectBuilder
 	 * ✔ GetAcadLocationInfo(uProject [specific] ) => ProjectDataCDPackagesTaskPhaseBuildingLocationAutoCAD
 	 * ✔ GetRevitLicationInfo(uProject [specific] ) => ProjectDataCDPackagesTaskPhaseBuildingLocationRevit
 	 * 
-	 * ✔ AddProject(uProjectData) => bool
+	 * ✔ Add(uProjectData) => bool
 	 * 
 	 * ✔ DeleteProject(uProject) => bool
 	 * 
@@ -123,25 +123,39 @@ namespace ProjectBuilder
 	 * 
 	 */
 
-
+//------------------------------------------------------------------------
+	// holds the project data information
 	public partial class ProjectData : IProjDataB
 	{
 		private string xmlFile;
 		private bool configured = false;
 
-		[XmlIgnore] 
-		public override string ItemID => Project.ID;
+		[XmlIgnore]
+		public override string ID
+		{
+			get { return Project.ID; }
+
+			set { Project.ID = value; }
+		}
 
 		[XmlIgnore]
-		public override string ItemDescription => Project.Description;
+		public override string Description
+		{
+			get { return Project.Description; }
+			set { Project.Description = value; }
+		}
 
 		[XmlIgnore]
-		public override List<ProjectDataTask> ItemList => Tasks;
+		public override List<ProjectDataTask> ItemList => this.Tasks;
 
 		public string XmlFile => xmlFile;
 
 		public bool Configured => configured;
 
+		// parameterless constructor
+		internal ProjectData() { }
+
+		// create new based on Basic project information
 		internal ProjectData(ProjData pData)
 		{
 			Project = new ProjectDataProject(pData);
@@ -176,6 +190,28 @@ namespace ProjectBuilder
 			return pd;
 		}
 
+
+		// if data is null or project exists => false
+		// if task exists
+		//  |  +-> yes -> task.add
+		//  +----> no -> add task -> task.add
+		internal bool Add(ProjData pData)
+		{
+			if (pData == null || Exists(pData.Project)) return false;
+
+			ProjectDataTask foundTask = FindTask(pData.Project);
+			ProjectDataTaskPhase foundPhase;
+
+			if (foundTask == null)
+			{
+				Tasks.Add(new ProjectDataTask(pData.Project));
+			}
+
+
+
+			return true;
+		}
+
 		public void Save()
 		{
 			SaveToFile(XmlFile);
@@ -187,42 +223,85 @@ namespace ProjectBuilder
 			return true;
 		}
 
+		public bool Exists(UserProj uProj)
+		{
+			if (uProj == null) return false;
+
+			return GetBuilding(uProj) != null;
+		}
+
+		internal List<UserProj> Find(UserProj uProj, int level = 0)
+		{
+			List<FindItem> foundList = FindItems(uProj, level);
+			List<UserProj> userProjects = new List<UserProj>();
+
+			foreach (FindItem oneTask in foundList)
+			{
+				foreach (FindItem onePhase in oneTask.FoundItems)
+				{
+					foreach (FindItem oneBldg in onePhase.FoundItems)
+					{
+						userProjects.Add(new UserProj(null, oneTask.Item,
+							onePhase.Item, oneBldg.Item));
+					}
+				}
+			}
+			return userProjects;
+		}
+
+		internal ProjectDataTask FindTask(UserProj uProj)
+		{
+			return Tasks.Find(x => x.ID.Equals(uProj.TaskKey.ID));
+		}
+
+		internal ProjectDataTaskPhaseBldg GetBuilding(UserProj uProj)
+		{
+			ProjectDataTask foundTask = FindChild(uProj.TaskKey.ID);
+			ProjectDataTaskPhaseBldg foundBldg = null;
+
+			if (foundTask != null)
+			{
+				ProjectDataTaskPhase foundPhase = foundTask.FindChild(uProj.PhaseKey.ID);
+
+				if (foundPhase != null)
+				{
+					foundBldg = foundPhase.FindChild(uProj.BldgKey.ID);
+				}
+			}
+
+			return foundBldg;
+		}
+
+		internal ProjectDataProject GetProject()
+		{
+			return Project;
+		}
+
+		public override string ToString()
+		{
+			return Project.ToString();
+		}
 	}
 
-//	public partial class ProjectData : IProjDataB
-//	{
-//		[XmlIgnore]
-//		public override string ItemID => "";
-//
-//		[XmlIgnore]
-//		public override string ItemDescription => "";
-//
-//		[XmlIgnore]
-//		public override List<ProjectDataTask> ItemList => new List<ProjectDataTask>();
-//
-//
-//
-//
-//
-//		// todo: implement code
-//		public bool Update(ProjData pData)
-//		{
-//			return true;
-//		}
-//	}
 
+
+//------------------------------------------------------------------------
+	// holds the task information
 	public partial class ProjectDataTask : IProjDataB
 	{
 		[XmlIgnore]
-		public override string ItemID => "";
+		public override List<ProjectDataTaskPhase> ItemList => Phase;
 
-		[XmlIgnore]
-		public override string ItemDescription => "";
+		private ProjectDataTask(string taskID, string taskDescription )
+		{
+			ID = taskID;
+			Description = taskDescription;
+		}
 
-		[XmlIgnore]
-		public override List<ProjectDataTaskPhase> ItemList => new List<ProjectDataTaskPhase>();
-
-
+		public ProjectDataTask(UserProj uProj) : this(uProj.TaskKey.ID, uProj.TaskKey.Description)
+		{
+			Phase = ProjectDataTaskPhase
+		}
 
 
 		// todo: implement code
@@ -230,31 +309,58 @@ namespace ProjectBuilder
 		{
 			return true;
 		}
+
+		internal ProjectDataTaskPhase FindPhase(UserProj uProj)
+		{
+			return Phase.Find(x => x.ID.Equals(uProj.PhaseKey.ID));
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			sb.Append(FormatItemN(Column, "Task",":")).Append(FormatProjNum(ID, Description));
+
+			return sb.ToString();
+		}
 	}
 
+
+
+//------------------------------------------------------------------------
+	// holds the phase information
 	public partial class ProjectDataTaskPhase : IProjDataB
 	{
 		[XmlIgnore]
-		public override string ItemID => "";
-
-		[XmlIgnore]
-		public override string ItemDescription => "";
-
-		[XmlIgnore]
-		public override List<ProjectDataTaskPhaseBldg> ItemList => new List<ProjectDataTaskPhaseBldg>();
-
-
-
+		public override List<ProjectDataTaskPhaseBldg> ItemList => Bldg;
 
 		// todo: implement code
 		public bool Update(ProjData pData)
 		{
 			return true;
 		}
+
+		internal ProjectDataTaskPhaseBldg FindBldg(UserProj uProj)
+		{
+			return Bldg.Find(x => x.ID.Equals(uProj.BldgKey.ID));
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			sb.Append(FormatItemN(Column, "Phase", ":")).Append(FormatProjNum(ID, Description));
+
+			return sb.ToString();
+		}
 	}
 
+
+//------------------------------------------------------------------------
+	// holds the building information
 	public partial class ProjectDataTaskPhaseBldg : IProjDataB
 	{
+
 		// parameterless constructor is required
 		internal ProjectDataTaskPhaseBldg() { }
 
@@ -264,8 +370,6 @@ namespace ProjectBuilder
 			Description = description ?? "";
 		}
 
-		// UserProj
-		// ProjData
 		internal ProjectDataTaskPhaseBldg(UserProj uProj) : this(uProj.BldgKey.ID, uProj.BldgKey.Description)
 		{
 			CDFolder = "";
@@ -273,11 +377,6 @@ namespace ProjectBuilder
 			Location = new ProjectDataTaskPhaseBldgLocation();
 		}
 
-		[XmlIgnore]
-		public override string ItemID => ID;
-
-		[XmlIgnore]
-		public override string ItemDescription => Description;
 
 		public List<FindItem> FindItems(UserProj uProj, int level)
 		{
@@ -304,13 +403,15 @@ namespace ProjectBuilder
 		{
 			StringBuilder sb = new StringBuilder();
 
-			sb.Append(FormatItemN("Building", ID));
-			sb.Append(FormatItemN("Description", Description));
+			sb.Append(FormatItemN(Column, "Building", ":")).Append(FormatProjNum(ID, Description));
 
 			return sb.ToString();
 		}
 	}
 
+
+//------------------------------------------------------------------------
+	// holds the location information
 	public partial class ProjectDataTaskPhaseBldgLocation : IProjDataA
 	{
 
@@ -322,6 +423,9 @@ namespace ProjectBuilder
 		}
 	}
 
+
+//------------------------------------------------------------------------
+	// holds the autocad location information
 	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : IProjDataA
 	{
 		// constructors

@@ -45,6 +45,10 @@ namespace ProjectBuilder
 			{
 				return new StringBuilder().AppendFormat("{0," + width + "}", description);
 			}
+			else if (value.Equals(":"))
+			{
+				value = "";
+			}
 
 			return new StringBuilder().AppendFormat("{0," + width + "}: {1}", description, value);
 		}

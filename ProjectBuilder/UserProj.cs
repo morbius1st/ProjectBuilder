@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 using System.Windows.Forms.VisualStyles;
 
@@ -19,6 +20,8 @@ namespace ProjectBuilder
 		private bool	_current;		// the user's current project
 		private bool	_active;		// project is active
 		private IDInfo[] _idinfo = new IDInfo[4];    // id components
+
+		public string[] idTitles = new[] { "Project", "Task", "Phase", "Building" };
 
 		public UserProj()
 			: this(null, false, false, null, null, null, null) { }
@@ -152,18 +155,43 @@ namespace ProjectBuilder
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
-			int column = 0;
 
 			sb.Append(FormatItemDividerN());
-			sb.Append(FormatItemN(column, "username", _username));
-			sb.Append(FormatItemN(column, "current", _current.ToString()));
-			sb.Append(FormatItemN(column, "active", _active.ToString()));
-			sb.Append(FormatItemN(column, "projectnumber", _idinfo[PROJ].ID));
-			sb.Append(FormatItemN(column, "task", _idinfo[TASK].ID));
-			sb.Append(FormatItemN(column, "phase", _idinfo[PHAZ].ID));
-			sb.Append(FormatItemN(column, "building", _idinfo[BLDG].ID));
+			sb.Append(FormatItemN("Username", _username ?? "is null"));
+			sb.Append(FormatItemN("Current", _current.ToString()));
+			sb.Append(FormatItemN("Active", _active.ToString()));
+
+			sb.Append(ListProjectNumber());
 
 			return sb.ToString();
+		}
+
+		static internal string FormatProjNum(string id, string description)
+		{
+			return String.Format("{0,-6} :: {1}", id, description);
+
+
+		}
+
+		public StringBuilder ListProjectNumber()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			for (int i = 0; i < idTitles.Length; i++)
+			{
+				sb.Append(FormatItemN(idTitles[i], ":"));
+
+				if (_idinfo[i] != null)
+				{
+					sb.Append(FormatProjNum(_idinfo[i].ID, _idinfo[i].Description));
+				}
+				else
+				{
+					sb.Append("is null");
+				}
+			}
+
+			return sb;
 		}
 
 	}

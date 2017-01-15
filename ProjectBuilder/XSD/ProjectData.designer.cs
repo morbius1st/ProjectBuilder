@@ -214,8 +214,8 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd", IsNullable = false)]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd", IsNullable = false)]
 	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataTask>
 	{
 
@@ -257,7 +257,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataProject : ProjectDataBase<ProjectDataProject>
 	{
 
@@ -314,7 +314,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTask : ProjectDataBaseB<ProjectDataTask, ProjectDataTaskPhase>
 	{
 
@@ -341,7 +341,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string ID
+		public override string ID
 		{
 			get
 			{
@@ -354,7 +354,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string Description
+		public override string Description
 		{
 			get
 			{
@@ -371,7 +371,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTaskPhase : ProjectDataBaseB<ProjectDataTaskPhase, ProjectDataTaskPhaseBldg>
 	{
 
@@ -398,7 +398,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string ID
+		public override string ID
 		{
 			get
 			{
@@ -411,7 +411,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string Description
+		public override string Description
 		{
 			get
 			{
@@ -428,7 +428,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTaskPhaseBldg : ProjectDataBaseA<ProjectDataTaskPhaseBldg>
 	{
 
@@ -487,7 +487,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string ID
+		public override string ID
 		{
 			get
 			{
@@ -500,7 +500,7 @@ namespace ProjectBuilder
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string Description
+		public override string Description
 		{
 			get
 			{
@@ -513,30 +513,30 @@ namespace ProjectBuilder
 		}
 	}
 
-//	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
-//	[System.SerializableAttribute()]
-//	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
-//	public enum ProjectDataTaskPhaseBldgSheetNumberFormat
-//	{
-//
-//		/// <remarks/>
-//		[System.Xml.Serialization.XmlEnumAttribute("1:X#")]
-//		Item1X,
-//
-//		/// <remarks/>
-//		[System.Xml.Serialization.XmlEnumAttribute("2:X#.#")]
-//		Item2X,
-//
-//		/// <remarks/>
-//		[System.Xml.Serialization.XmlEnumAttribute("3:X#.#-#")]
-//		Item3X,
-//	}
+	//		[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+	//		[System.SerializableAttribute()]
+	//		[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
+	//		public enum ProjectDataTaskPhaseBldgSheetNumberFormat
+	//		{
+	//	
+	//			/// <remarks/>
+	//			[System.Xml.Serialization.XmlEnumAttribute("1:X#")]
+	//			Item1X,
+	//	
+	//			/// <remarks/>
+	//			[System.Xml.Serialization.XmlEnumAttribute("2:X#.#")]
+	//			Item2X,
+	//	
+	//			/// <remarks/>
+	//			[System.Xml.Serialization.XmlEnumAttribute("3:X#.#-#")]
+	//			Item3X,
+	//		}
 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTaskPhaseBldgLocation : ProjectDataBase<ProjectDataTaskPhaseBldgLocation>
 	{
 
@@ -577,7 +577,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : ProjectDataBase<ProjectDataTaskPhaseBldgLocationAutoCAD>
 	{
 
@@ -650,7 +650,7 @@ namespace ProjectBuilder
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///P:/VisualStudioProjects/XSDTest/XSDTest/XSD/ProjectData.xsd")]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	public partial class ProjectDataTaskPhaseBldgLocationRevit : ProjectDataBase<ProjectDataTaskPhaseBldgLocationRevit>
 	{
 
