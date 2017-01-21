@@ -125,7 +125,7 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the project data information
-	public partial class ProjectData : IProjDataB
+	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataTask>, IProjDataB
 	{
 		private string xmlFile;
 		private bool configured = false;
@@ -153,7 +153,10 @@ namespace ProjectBuilder
 		public bool Configured => configured;
 
 		// parameterless constructor
-		internal ProjectData() { }
+		internal ProjectData()
+		{
+			Tasks = new List<ProjectDataTask>();
+		}
 
 		// create new based on Basic project information
 		internal ProjectData(ProjData pData)
@@ -195,26 +198,47 @@ namespace ProjectBuilder
 		// if task exists
 		//  |  +-> yes -> task.add
 		//  +----> no -> add task -> task.add
-		internal bool Add(ProjData pData)
-		{
-			if (pData == null || Exists(pData.Project)) return false;
-
-			ProjectDataTask foundTask = FindTask(pData.Project);
-			ProjectDataTaskPhase foundPhase;
-
-			if (foundTask == null)
-			{
-				Tasks.Add(new ProjectDataTask(pData.Project));
-			}
-
-
-
-			return true;
-		}
+//		internal bool Add(ProjData pData)
+//		{
+//			if (pData == null || Exists(pData.Project)) return false;
+//
+//			ProjectDataTask foundTask = FindTask(pData.Project);
+//			ProjectDataTaskPhase foundPhase;
+//
+//			if (foundTask == null)
+//			{
+//				Tasks.Add(new ProjectDataTask(pData.Project));
+//			}
+//
+//
+//
+//			return true;
+//		}
 
 		public void Save()
 		{
 			SaveToFile(XmlFile);
+		}
+
+		public bool DeleteProject(UserProj uProj)
+		{
+			bool result = false;
+
+			ProjectDataTask foundTask = FindTask(uProj);
+
+			if (foundTask != null)
+			{
+				result = foundTask.Delete(uProj);
+
+				if (foundTask.Phase.Count == 0)
+				{
+					Tasks.Remove(foundTask);
+				}
+
+			}
+
+
+
 		}
 
 		// todo: implement code
@@ -287,10 +311,16 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the task information
-	public partial class ProjectDataTask : IProjDataB
+	public partial class ProjectDataTask : ProjectDataBaseB<ProjectDataTask, ProjectDataTaskPhase>, IProjDataB
 	{
 		[XmlIgnore]
 		public override List<ProjectDataTaskPhase> ItemList => Phase;
+
+		// parameterless constructor required
+		public ProjectDataTask()
+		{
+			Phase = new List<ProjectDataTaskPhase>();
+		}
 
 		private ProjectDataTask(string taskID, string taskDescription )
 		{
@@ -298,10 +328,10 @@ namespace ProjectBuilder
 			Description = taskDescription;
 		}
 
-		public ProjectDataTask(UserProj uProj) : this(uProj.TaskKey.ID, uProj.TaskKey.Description)
-		{
-			Phase = ProjectDataTaskPhase
-		}
+//		public ProjectDataTask(UserProj uProj) : this(uProj.TaskKey.ID, uProj.TaskKey.Description)
+//		{
+//			Phase = ProjectDataTaskPhase;
+//		}
 
 
 		// todo: implement code
@@ -329,7 +359,7 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the phase information
-	public partial class ProjectDataTaskPhase : IProjDataB
+	public partial class ProjectDataTaskPhase : ProjectDataBaseB<ProjectDataTaskPhase, ProjectDataTaskPhaseBldg>, IProjDataB
 	{
 		[XmlIgnore]
 		public override List<ProjectDataTaskPhaseBldg> ItemList => Bldg;
@@ -338,6 +368,11 @@ namespace ProjectBuilder
 		public bool Update(ProjData pData)
 		{
 			return true;
+		}
+
+		public ProjectDataTaskPhase()
+		{
+			Bldg = new List<ProjectDataTaskPhaseBldg>();
 		}
 
 		internal ProjectDataTaskPhaseBldg FindBldg(UserProj uProj)
@@ -358,11 +393,14 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the building information
-	public partial class ProjectDataTaskPhaseBldg : IProjDataB
+	public partial class ProjectDataTaskPhaseBldg : ProjectDataBaseA<ProjectDataTaskPhaseBldg>, IProjDataB
 	{
 
 		// parameterless constructor is required
-		internal ProjectDataTaskPhaseBldg() { }
+		public ProjectDataTaskPhaseBldg()
+		{
+			Location = new ProjectDataTaskPhaseBldgLocation();
+		}
 
 		internal ProjectDataTaskPhaseBldg(string id, string description)
 		{
@@ -377,6 +415,11 @@ namespace ProjectBuilder
 			Location = new ProjectDataTaskPhaseBldgLocation();
 		}
 
+		// building already added - just need to add the location data
+		public bool AddItem(ProjData pData, int level)
+		{
+			return true;
+		}
 
 		public List<FindItem> FindItems(UserProj uProj, int level)
 		{
@@ -412,9 +455,14 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the location information
-	public partial class ProjectDataTaskPhaseBldgLocation : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocation : ProjectDataBase<ProjectDataTaskPhaseBldgLocation>, IProjDataA
 	{
 
+		public ProjectDataTaskPhaseBldgLocation()
+		{
+			AutoCAD = new ProjectDataTaskPhaseBldgLocationAutoCAD();
+			Revit = new ProjectDataTaskPhaseBldgLocationRevit();
+		}
 
 		// todo: implement code
 		public bool Update(ProjData pData)
@@ -426,7 +474,7 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds the autocad location information
-	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : ProjectDataBase<ProjectDataTaskPhaseBldgLocationAutoCAD>, IProjDataA
 	{
 		// constructors
 		internal ProjectDataTaskPhaseBldgLocationAutoCAD()
@@ -509,7 +557,7 @@ namespace ProjectBuilder
 
 //------------------------------------------------------------------------
 	// holds revit location information
-	public partial class ProjectDataTaskPhaseBldgLocationRevit : IProjDataA
+	public partial class ProjectDataTaskPhaseBldgLocationRevit : ProjectDataBase<ProjectDataTaskPhaseBldgLocationRevit>, IProjDataA
 	{
 		// constructors
 		internal ProjectDataTaskPhaseBldgLocationRevit()

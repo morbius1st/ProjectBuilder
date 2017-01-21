@@ -216,7 +216,7 @@ namespace ProjectBuilder
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
 	[System.Xml.Serialization.XmlRootAttribute(Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd", IsNullable = false)]
-	public partial class ProjectData : ProjectDataBaseB<ProjectData, ProjectDataTask>
+	public partial class ProjectData
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -315,7 +315,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTask : ProjectDataBaseB<ProjectDataTask, ProjectDataTaskPhase>
+	public partial class ProjectDataTask
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -372,7 +372,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTaskPhase : ProjectDataBaseB<ProjectDataTaskPhase, ProjectDataTaskPhaseBldg>
+	public partial class ProjectDataTaskPhase
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -429,7 +429,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTaskPhaseBldg : ProjectDataBaseA<ProjectDataTaskPhaseBldg>
+	public partial class ProjectDataTaskPhaseBldg
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -537,7 +537,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTaskPhaseBldgLocation : ProjectDataBase<ProjectDataTaskPhaseBldgLocation>
+	public partial class ProjectDataTaskPhaseBldgLocation
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -578,7 +578,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD : ProjectDataBase<ProjectDataTaskPhaseBldgLocationAutoCAD>
+	public partial class ProjectDataTaskPhaseBldgLocationAutoCAD
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -651,7 +651,7 @@ namespace ProjectBuilder
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "file:///D:/Users/Jeff/Documents/Programming/VisualStudioProjects/ProjectBuilder/ProjectBuilder/XSD/ProjectData.xsd")]
-	public partial class ProjectDataTaskPhaseBldgLocationRevit : ProjectDataBase<ProjectDataTaskPhaseBldgLocationRevit>
+	public partial class ProjectDataTaskPhaseBldgLocationRevit
 	{
 
 		[EditorBrowsable(EditorBrowsableState.Never)]

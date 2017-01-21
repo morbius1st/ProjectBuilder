@@ -18,7 +18,7 @@ namespace ProjectBuilder
 		private const string XML_FILE_NAME = "8998 ProjectData.xml";
 		private static readonly string XmlProjectFile = string.Concat(PROJECT_FILE, "\\", XML_FILE_NAME);
 
-		private const string XML_TEST_FILE_NAME = "xxxx ProjectData.xml";
+		private const string XML_TEST_FILE_NAME = "xxxy ProjectData.xml";
 		private static readonly string XmlTestProjectFile = string.Concat(PROJECT_FILE, "\\", XML_TEST_FILE_NAME);
 
 		List<ChangeItem> changeList = new List<ChangeItem>();
@@ -95,6 +95,7 @@ namespace ProjectBuilder
 				new IDInfo("", "No Phase"), new IDInfo("", "No Building"));
 
 
+			
 			// new
 			UserProj up_00_mt_C = new UserProj(px, new IDInfo("00", "Task 00"),
 				new IDInfo("", "Phase none"), new IDInfo("C", "Building C"));
@@ -111,11 +112,8 @@ namespace ProjectBuilder
 			UserProj up_03_0_C = new UserProj(px, new IDInfo("03", "Task 03"),
 				new IDInfo("0", "Phase 0"), new IDInfo("C", "Building C"));
 
-			UserProj up_00_mt_A_desc = new UserProj(px, new IDInfo("00", "Task 00"),
-				new IDInfo("", "Phase does not apply"), new IDInfo("A", "Building A"));
-
-			UserProj up_00_mt_B_desc = new UserProj(px, new IDInfo("00", "Task 00"),
-				new IDInfo("", "Phase does not apply"), new IDInfo("B", "Building B"));
+			UserProj up_00_mt_null = new UserProj(px, new IDInfo("00", "Task 00"),
+				new IDInfo("", "Phase does not apply"), null);
 
 
 			ProjData upd01;
@@ -197,10 +195,13 @@ namespace ProjectBuilder
 
 //			tests = new[] { "232" };			// get Revit Location: specific task / phase / bldg
 
-			tests = new[] { "101", "301", "101" };			// add a new project (task, phase, & building)
+//			tests = new[] { "101", "301", "101" };			// add a new project (task, phase, & building)
 
-			//			tests = new[] { "X", "101", "320", "101", 
-			//				"E", "101" };	// load test file and delete one project
+//			tests = new[] { "101", "302", "101" };          // add a new project (task, phase, & building) - phase is mt
+
+//			tests = new[] { "X", "101", "303", "101" };          // add a new project (task, phase, & building) - bldg is null
+
+			tests = new[] { "X", "101", "320", "101" };	// load test file and delete one project
 
 			//			tests = new[] { "X", "101", "321", "101", "322", "101" };	// load test file and delete one project
 
@@ -213,7 +214,9 @@ namespace ProjectBuilder
 			//			tests = new[] { "X", "101", "351", "352", "101" };
 
 			// test: create whole new project
-			//			tests = new[] { "0", "X", "301", "302", "303", "304", "305", "306", "S", "41" };
+//			tests = new[] { "0", "X", "301", "302", "303", "304", "305", "306", "307", "S", "41" };
+
+//			tests = new[] {"X", "101"};			// load and list alternate
 
 			// copy project
 			//			tests = new[] {"X", "41", "330", "41"};
@@ -501,12 +504,12 @@ namespace ProjectBuilder
 						break;
 					
 					case "302":
-						up01 = up_02_5_H;
+						up01 = up_00_mt_B;
 						sb.Append(CreateNewProject(pd, up01));
 						break;
 					
 					case "303":
-						up01 = up_00_1_F;
+						up01 = up_00_mt_null;
 						sb.Append(CreateNewProject(pd, up01));
 						break;
 					
@@ -526,16 +529,21 @@ namespace ProjectBuilder
 						break;
 					
 					case "307":
-						up01 = up_00_mt_C;
-						sb.Append(CreateNewProject(pd, up01));
+						sb.Append(CreateNewProject(pd, up_00_mt_C));
+						sb.Append(CreateNewProject(pd, up_00_mt_C));
+						sb.Append(CreateNewProject(pd, up_01_1_mt));
+						sb.Append(CreateNewProject(pd, up_00_2_C));
+						sb.Append(CreateNewProject(pd, up_00_2_D));
+						sb.Append(CreateNewProject(pd, up_03_0_C));
+						sb.Append(CreateNewProject(pd, up_00_mt_A));
 						break;
-					//
-					//					case "320":
-					//						up01 = up_02_5_H;
-					//						sb.Append(FormatItemN("Deleting project", FormatProject(up01).ToString()));
-					//						sb.Append(FormatItemN("deleted?", pd.DeleteProject(up01).ToString()));
-					//						break;
-					//
+					
+					case "320":
+						up01 = up_02_5_H;
+						sb.Append(FormatItemN("Deleting project", FormatProject(up01).ToString()));
+						sb.Append(FormatItemN("deleted?", pd.DeleteProject(up01).ToString()));
+						break;
+					
 					//					case "321":
 					//						up01 = up_01_1_mt;
 					//						sb.Append(FormatItemN("Deleting project", FormatProject(up01).ToString()));
@@ -768,13 +776,15 @@ namespace ProjectBuilder
 		{
 			StringBuilder projNumber = new StringBuilder();
 
-			string tsk = (uProj.TaskKey.ID ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.ID;
-			string ph = (uProj.PhaseKey.ID ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.ID;
-			string bld = (uProj.BldgKey.ID ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.ID;
+			string bld = uProj.BldgKey?.ID ?? "null";
 
-			projNumber.Append("tsk: ").Append(tsk);
-			projNumber.Append(" ph: ").Append(ph);
-			projNumber.Append(" bld: ").Append(bld);
+			string tsk = (uProj.TaskKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.ID ?? "null";
+			string ph = (uProj.PhaseKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.ID ?? "null";
+//			string bld = (uProj.BldgKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.ID ?? "null";
+
+			projNumber.Append("tsk: ").Append($"{tsk,-4}");
+			projNumber.Append(" ph: ").Append($"{ph,-4}");
+			projNumber.Append(" bld: ").Append($"{bld,-4}");
 
 			return projNumber;
 		}
@@ -783,13 +793,15 @@ namespace ProjectBuilder
 		{
 			StringBuilder projNumber = new StringBuilder();
 
-			string tsk = (uProj.TaskKey.ID ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.ID;
-			string ph = (uProj.PhaseKey.ID ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.ID;
-			string bld = (uProj.BldgKey.ID ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.ID;
+			uProj.BldgKey.ID = null;
 
-			string tsk_desc = (uProj.TaskKey.Description ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.Description;
-			string ph_desc = (uProj.PhaseKey.Description ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.Description;
-			string bld_desc = (uProj.BldgKey.Description ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.Description;
+			string tsk = $"{((uProj.TaskKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.ID), -4}";
+			string ph = $"{((uProj.PhaseKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.ID),-4}";
+			string bld = $"{((uProj.BldgKey?.ID ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.ID),-4}";
+
+			string tsk_desc = $"{((uProj.TaskKey?.Description ?? "null").Equals("") ? "<mt>" : uProj.TaskKey.Description),-10}";
+			string ph_desc = $"{((uProj.PhaseKey?.Description ?? "null").Equals("") ? "<mt>" : uProj.PhaseKey.Description),-10}";
+			string bld_desc = $"{((uProj.BldgKey?.Description ?? "null").Equals("") ? "<mt>" : uProj.BldgKey.Description),-10}";
 
 			projNumber.Append(tsk).Append(" - ").Append(tsk_desc).Append(" | ");
 			projNumber.Append(ph).Append(" - ").Append(ph_desc).Append(" | ");
@@ -897,8 +909,8 @@ namespace ProjectBuilder
 
 			ProjData newProject = MakeProject(uProj);
 			sb.Append(FormatItemN("Adding project", FormatProject(uProj).ToString()));
-			sb.Append(FormatProject(newProject));
-			sb.Append(FormatItemN("added?", pd.Add(newProject).ToString()));
+//			sb.Append(FormatProject(newProject));
+			sb.Append(FormatItemN("added?", pd.AddItem(newProject).ToString()));
 
 			return sb;
 		}
@@ -946,13 +958,22 @@ namespace ProjectBuilder
 			return pData;
 		}
 
+		private string FormatTPB(UserProj userProj)
+		{
+			if (userProj == null)
+			{
+				return "null";
+			}
+			return (userProj.TaskKey?.ID ?? "n") + "-" + (userProj.PhaseKey?.ID ?? "n") + "-" + (userProj.BldgKey?.ID ?? "n");
+		}
+
 		private ProjDataAutoCAD MakeAutoCAD(string cdfolder, UserProj uProj)
 		{
 			ProjDataAutoCAD acad = new ProjDataAutoCAD();
 
-			string tpb = uProj.TaskKey.ID + "-" + uProj.PhaseKey.ID + "-" + uProj.BldgKey.ID;
+//			string tpb = uProj.TaskKey.ID + "-" + uProj.PhaseKey.ID + "-" + uProj.BldgKey.ID;
 
-			string shtfolder = cdfolder + @"\" + tpb + "-acad";
+			string shtfolder = cdfolder + @"\" + FormatTPB(uProj) + "-acad";
 			string detail = shtfolder + @"\detail";
 
 			acad.SheetFolder = shtfolder;
@@ -979,9 +1000,9 @@ namespace ProjectBuilder
 		{
 			ProjDataRevit revit = new ProjDataRevit();
 
-			string tpb = uProj.TaskKey.ID + "-" + uProj.PhaseKey.ID + "-" + uProj.BldgKey.ID;
+//			string tpb = uProj.TaskKey.ID + "-" + uProj.PhaseKey.ID + "-" + uProj.BldgKey.ID;
 
-			string modelfolder = cdfolder + @"\" + tpb + "-revit";
+			string modelfolder = cdfolder + @"\" + FormatTPB(uProj) + "-revit";
 
 			revit.CDModelFile = modelfolder + @"\model.rvt";
 			revit.LibraryModelFile = modelfolder + @"\library.rvt";

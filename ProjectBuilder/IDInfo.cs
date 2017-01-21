@@ -10,18 +10,18 @@ namespace ProjectBuilder
 
 		public IDInfo(string id, string description) : this(id)
 		{
-			Description = description;
+			Description = description ?? "";
 		}
 
 		public IDInfo(string id)
 		{
-			_id = id.Trim();
+			_id = id?.Trim() ?? "";
 		}
 
 		public string ID
 		{
 			get { return _id; }
-			set { _id = value.Trim(); }
+			set { _id = value?.Trim() ?? ""; }
 		}
 
 		public IDInfo Clone()

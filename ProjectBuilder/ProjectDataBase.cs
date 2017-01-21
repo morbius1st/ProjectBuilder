@@ -21,7 +21,7 @@ namespace ProjectBuilder
 		}
 	}
 
-	public abstract class ProjectDataBaseB<T1, T2> : ProjectDataBaseA<T1> where T2 : class, IProjDataB
+	public abstract class ProjectDataBaseB<T1, T2> : ProjectDataBaseA<T1> where T2 : class, IProjDataB, new()
 	{
 		[XmlIgnore]
 		public abstract List<T2> ItemList { get; }
@@ -67,9 +67,33 @@ namespace ProjectBuilder
 			return FoundList;
 		}
 
-		public bool Add(ProjData pData)
+		public bool AddItem(ProjData pData, int level = 0)
 		{
-			if (ProjData == null || ProjectData.Exists(pData.Project)) return false
+			if (pData == null) return false;
+
+			level++;
+
+			T2 item = FindItem(pData.Project, level);
+
+			if (item == null)
+			{
+				item = new T2();
+
+				item.ID = pData.Project[level]?.ID ?? "";
+				item.Description = pData.Project[level]?.Description ?? "";
+
+				ItemList.Add(item);
+			}
+
+			item.AddItem(pData, level);
+
+			return true;
+		}
+
+		public T2 FindItem(UserProj userProj, int level)
+		{
+
+			return ItemList.Find(x => x.ID.Equals(userProj[level]?.ID));
 		}
 
 		public void Sort()
